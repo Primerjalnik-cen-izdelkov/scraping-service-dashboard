@@ -28,3 +28,14 @@
         }
     }
 }
+
+.running {
+    border-radius: 5px;
+    color: green;
+    background-color: rgba(0, 128, 0, 0.151);
+}
+.not_running {
+    border-radius: 5px;
+    color: rgb(216, 40, 0);
+    background-color: rgba(189, 19, 3, 0.103);
+}
