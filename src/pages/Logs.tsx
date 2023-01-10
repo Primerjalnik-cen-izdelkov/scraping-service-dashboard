@@ -10,8 +10,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Config } from '../config';
 
-const API_URL = `http://localhost:8080/v1/bots/logs`
+//const BOTS_URL:string = process.env.BOTS_URL as string;
+const BOTS_URL:string = Config.BOTS_URL;
+// http://localhost:8080/v1/bots/logs
+const LOGS_URL:string = `${BOTS_URL}/logs`;
 
 interface Log {
     id: number
@@ -36,7 +40,7 @@ function setQueryParams(qp:Map<string, string>) {
         }
     }
 
-    var result = API_URL;
+    var result = LOGS_URL;
 
     console.log("qp:", queryParamsStr);
 
@@ -64,7 +68,7 @@ const Logs = () => {
     const [sort, setSort] = useState("");
 
     useEffect(() => {
-        fetch(API_URL)
+        fetch(LOGS_URL)
             .then(res => res.json())
             .then(
                 (result) => {

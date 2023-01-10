@@ -3,6 +3,9 @@ import { Collapse, List, ListItem, ListItemButton, ListItemIcon, ListItemText, L
 import { useState, useEffect } from "react";
 import "./ListBot.scss";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import { Config } from '../config';
+
+const BOTS_URL:string = Config.BOTS_URL;
 
 type ListBotProps = {
     name: string;
@@ -11,14 +14,17 @@ type ListBotProps = {
     status: boolean;
 };
 
+const LOGS_URL:string = `${BOTS_URL}/logs`;
+const FILES_URL:string = `${BOTS_URL}/files`;
+
 async function handleStartFetch(name:string) {
-    return fetch(`http://localhost:8080/v1/bots/${name}/cmd/scrape`, {
+    return fetch(`${BOTS_URL}/${name}/cmd/scrape`, {
         method: 'POST',
     }).then(data => data.json())
 }
 
 async function handleStopFetch(name:string) {
-    return fetch(`http://localhost:8080/v1/bots/${name}/cmd/stop`, {
+    return fetch(`${BOTS_URL}/${name}/cmd/stop`, {
         method: 'POST',
     }).then(data => data.json())
 }
@@ -64,7 +70,7 @@ const ListBot = ({name, last_run, logs_count, status}: ListBotProps) => {
     const dateStr = `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()}`;
 
     useEffect(() => {
-        fetch(`http://localhost:8080/v1/bots/logs?name=${name}&sort=-start_time&limit=1`)
+        fetch(`${LOGS_URL}?name=${name}&sort=-start_time&limit=1`)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -81,7 +87,7 @@ const ListBot = ({name, last_run, logs_count, status}: ListBotProps) => {
     }, [])
 
     useEffect(() => {
-        fetch(`http://localhost:8080/v1/bots/files?name=${name}&sort=-start_time&limit=1`)
+        fetch(`${FILES_URL}?name=${name}&sort=-start_time&limit=1`)
             .then(res => res.json())
             .then(
                 (result) => {

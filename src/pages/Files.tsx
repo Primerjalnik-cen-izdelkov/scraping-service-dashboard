@@ -10,8 +10,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Config } from '../config';
 
-const API_URL = `http://localhost:8080/v1/bots/files`
+const BOTS_URL:string = Config.BOTS_URL;
+// http://localhost:8080/v1/bots/files
+const FILES_URL:string = `${BOTS_URL}/files`;
 
 interface File {
     id: number
@@ -33,7 +36,7 @@ function setQueryParams(qp:Map<string, string>) {
         }
     }
 
-    var result = API_URL;
+    var result = FILES_URL;
 
     console.log("qp:", queryParamsStr);
 
@@ -60,7 +63,7 @@ const Files = () => {
     const [sort, setSort] = useState("");
 
     useEffect(() => {
-        fetch(API_URL)
+        fetch(FILES_URL)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -188,7 +191,7 @@ const Files = () => {
                                                     {file.bot_name}
                                                 </TableCell>
                                                 <TableCell align="right">{file.id}</TableCell>
-                                                <TableCell align="right"><a href={`http://localhost:8080/v1/bots/${file.bot_name}/files/${file.file_name}`} target="_blank" download>{file.file_name}</a></TableCell>
+                                                <TableCell align="right"><a href={`${BOTS_URL}/${file.bot_name}/files/${file.file_name}`} target="_blank" download>{file.file_name}</a></TableCell>
                                                 <TableCell align="right">{file.date.toString()}</TableCell>
                                                 </TableRow>
                                         )) }

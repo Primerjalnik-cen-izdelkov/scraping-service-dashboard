@@ -8,8 +8,13 @@ import { Collapse, List, ListItem, ListItemButton, ListItemIcon, ListItemText, L
 import "./Home.scss"
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Config } from '../config';
 
-const API_URL = 'http://localhost:8080/v1/bots';
+const BOTS_URL:string = Config.BOTS_URL;
+// http://localhost:8080/v1/bots
+const HOME_URL:string = `${BOTS_URL}`;
+// http://localhost:8080/v1/bots/cmd/
+const CMD_URL:string = `${BOTS_URL}/cmd/`;
 
 interface Status {
     running: boolean
@@ -24,13 +29,13 @@ interface Bot {
 }
 
 async function runAllBotsFetch() {
-    return fetch('http://localhost:8080/v1/bots/cmd/scrape', {
+    return fetch(`${CMD_URL}/scrape`, {
         method: 'POST',
     }).then(data => data.json())
 }
 
 async function stopAllBotsFetch() {
-    return fetch('http://localhost:8080/v1/bots/cmd/stop', {
+    return fetch(`${CMD_URL}/stop`, {
         method: 'POST',
     }).then(data => data.json())
 }
@@ -54,7 +59,7 @@ const Home = () => {
 
     useEffect(() => {
         let interval = setInterval(() => {
-            fetch(API_URL)
+            fetch(HOME_URL)
                 .then(res => res.json())
                 .then(
                     (result) => {

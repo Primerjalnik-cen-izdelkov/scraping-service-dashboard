@@ -17,10 +17,12 @@ function App() {
     return <Login setToken={setToken} />
   }
 
+  console.log("ROUTING");
+
   return (
     // TODO(miha): Switch colormode of the dashboard here
     <div className={""}>
-      <BrowserRouter>
+      <BrowserRouter basename='/dashboard'>
         <Routes>
           <Route path="/">
             <Route index element={<Home />} />

@@ -1,13 +1,20 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import './Login.scss';
+import { Config } from '../config';
 
 type LoginProps = {
     setToken: any;
 };
 
+// http://localhost:8080/v1/login
+const LOGIN_URL:string = Config.LOGIN_URL;
+
 async function loginUser(user:string, pass:string) {
-    return fetch('http://localhost:8080/v1/login', {
+    console.log("login_url from env:", LOGIN_URL);
+    console.log("login_url from env:", process.env.PUBLIC_URL);
+    console.log("login_url from env:", process.env.REACT_APP_PUBLIC_URL);
+    return fetch(LOGIN_URL, {
         method: 'POST',
         headers : {
             'Content-Type': 'application/json'

@@ -11,6 +11,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Config } from '../config';
+
+// http://localhost:8080/v1/bots
+const BOTS_URL:string = Config.BOTS_URL;
 
 interface Status {
     running: boolean
@@ -23,6 +27,7 @@ interface Bot {
     logs_count: number
     status: Status
 }
+
 
 const Bots = () => {
     const [error, setError] = useState<Error | null>(null);
@@ -66,10 +71,12 @@ const Bots = () => {
         setSort(e.target.value);
     };
 
+    console.log("FROM BOTS");
+
     useEffect(() => {
         let interval = setInterval(() => {
             console.log("id:", id);
-            fetch(`http://localhost:8080/v1/bots`)
+            fetch(BOTS_URL)
                 .then(res => res.json())
                 .then(
                     (result) => {

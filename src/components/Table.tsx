@@ -57,6 +57,7 @@ const List = ({url}:ListProps) => {
 
   return (
     <div>
+        {/**
         <TableContainer component={Paper} className="table">
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -87,6 +88,7 @@ const List = ({url}:ListProps) => {
             </TableBody>
         </Table>
         </TableContainer>
+        */}
     </div>
   );
 };
